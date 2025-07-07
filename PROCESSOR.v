@@ -1,5 +1,5 @@
 module PROCESSOR(clk, reset);
-   input clk, reset; 
+       input clk, reset; 
 	
 	wire [31:0]	pc_top, instruction_top, rd1_top, read_data2_top, sign_out,mux1_out,sum_out_top, nextPC_top, mux_out2_top, address_select,
 	memdata_out_top, write_back_top; 
@@ -7,7 +7,7 @@ module PROCESSOR(clk, reset);
 	wire [1:0] ALUOp_top; 
 	
 	// program counter 
-   wire [3:0] control_top; 
+        wire [3:0] control_top; 
 	PC program_counter(.reset(reset), .pc_in(mux_out2_top), .clk(clk), .pc_out(pc_top)); 
 	
 	// pc cong 4 
@@ -63,7 +63,7 @@ endmodule
 
 // program counter 
 module PC(
-   input reset, 
+       input reset, 
 	input [31:0] pc_in, 
 	input clk, 
 	output reg [31:0] pc_out ); 
@@ -87,7 +87,7 @@ endmodule
 
 // instruction memory (ROM); 
 module instruction_memory(
-   input clk, 
+        input clk, 
 	input reset, 
 	input [31:0] read_address, 
 	output [31:0] instruction_out );
@@ -112,23 +112,23 @@ assign  instruction_out = I_Mem[read_address[5:0]];
 	           end 
        end 
      else 
-// r type 	  
-      I_Mem[0] = 32'b0; 
+       // r type 	  
+                I_Mem[0] = 32'b0; 
 		I_Mem[4] = 32'b00000001100110000000011010110011; // add x13, x16, x25  
 		I_Mem[8] = 32'b01000000001101000000001010110011; // sub x5, x8, x3 
 		I_Mem[12] = 32'b00000000001100010111000010110011;// and x1, x2, x3 
 		I_Mem[16] = 32'b00000000010100101110001000110011; // or x4, x3, x5 
 	// i type 
-      I_Mem[20] = 32'b00000000001110101000101100010011; // addi x22, x21, 3
-	   I_Mem[24] = 32'b00000000000101000110010010010011; // ori x9, x8, 1
+               I_Mem[20] = 32'b00000000001110101000101100010011; // addi x22, x21, 3
+	       I_Mem[24] = 32'b00000000000101000110010010010011; // ori x9, x8, 1
 	// l type 
-      I_Mem[28] = 32'b00000000111100101010010000000011; // lw x8, 15(x5)
-	   I_Mem[32] = 32'b00000000001100011010010010000011; // lw x9, 3(x3)
-	 // s- type 
-	   I_Mem[36] = 32'b00000000111100101010011000100011; // sw x15, 12(x5)
-	   I_Mem[40] = 32'b00000000111000110010010100100011; // sw x14, 10(x6)
+               I_Mem[28] = 32'b00000000111100101010010000000011; // lw x8, 15(x5)
+	       I_Mem[32] = 32'b00000000001100011010010010000011; // lw x9, 3(x3)
+	// s- type 
+	       I_Mem[36] = 32'b00000000111100101010011000100011; // sw x15, 12(x5)
+	       I_Mem[40] = 32'b00000000111000110010010100100011; // sw x14, 10(x6)
 	 // sb type 
-	   I_Mem[44] = 32'h00948663; // beq x9,x9,12  
+	       I_Mem[44] = 32'h00948663; // beq x9,x9,12  
 			
 end 
 endmodule 
@@ -281,6 +281,7 @@ module ALU_Control(ALUOp, Fun7, Fun3, Control_out);
 	end 	 
 endmodule
 // data memory: 
+
 module Data_Memory(clk, reset, MemWrite, MemRead, Read_address, Write_data, Memdata_out);
     input clk, reset, MemWrite, MemRead;
     input [31:0] Read_address, Write_data;
@@ -303,6 +304,7 @@ module Data_Memory(clk, reset, MemWrite, MemRead, Read_address, Write_data, Memd
 endmodule
 
 // multiplexer 
+
 module mux1(sel1, a1, b1, mux_out); 
    input sel1; 
 	input [31:0] a1, b1; 
